@@ -17,4 +17,4 @@ echo.
 echo Press Ctrl+C to stop the server
 echo.
 set HOST=0.0.0.0
-npm start 
+call npm start 
