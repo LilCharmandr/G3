@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Tracker - Mobile Access</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .url-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            word-break: break-all;
+        }
+        .instructions {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        .note {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 4px solid #FFC107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Glucose Tracker</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Access your app on your phone</p>
+        
+        <div class="url-box" id="url">
+            http://192.168.1.137:3000
+        </div>
+        
+        <button class="copy-btn" onclick="copyUrl()">📋 Copy URL</button>
+        
+        <div class="qr-placeholder">
+            📱 Scan with your phone's camera<br>
+            or manually enter the URL above
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                Make sure your phone is connected to the same WiFi network as this computer
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                Open your phone's browser (Chrome, Safari, etc.)
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                Enter the URL above or scan with your camera
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                The app will load and work just like a native mobile app!
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>💡 Pro Tip:</strong> You can add this to your phone's home screen for quick access:
+            <br>• iOS: Tap the share button → "Add to Home Screen"
+            <br>• Android: Tap the menu → "Add to Home Screen"
+        </div>
+    </div>
+
+    <script>
+        function copyUrl() {
+            const url = document.getElementById('url').textContent.trim();
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+        
+        // Auto-update URL if port changes
+        const currentUrl = window.location.href;
+        if (currentUrl.includes('localhost')) {
+            const port = currentUrl.split(':')[2]?.split('/')[0];
+            if (port && port !== '3000') {
+                document.getElementById('url').textContent = `http://192.168.1.137:${port}`;
+            }
+        }
+    </script>
+</body>
+</html> 
