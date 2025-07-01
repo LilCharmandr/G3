@@ -19,7 +19,7 @@ const RecentEntries: React.FC<RecentEntriesProps> = ({
 }) => {
   if (entries.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
         <p>No entries yet</p>
         <p className="text-sm">Add your first glucose reading to get started</p>
       </div>
@@ -32,22 +32,22 @@ const RecentEntries: React.FC<RecentEntriesProps> = ({
         const glucoseLevel = getGlucoseLevel(entry.value);
         
         return (
-          <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div key={entry.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
             <div className="flex-1">
               <div className="flex items-center gap-3">
                 <div className={`w-3 h-3 rounded-full ${glucoseLevel.color.replace('text-', 'bg-').replace('border-', 'bg-')}`} />
                 <div>
-                  <div className="font-semibold text-gray-900">
+                  <div className="font-semibold text-gray-900 dark:text-gray-100">
                     {entry.value} mg/dL
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
                     {format(new Date(entry.timestamp), 'MMM dd, HH:mm')}
                   </div>
                 </div>
               </div>
               
               {entry.mealType && (
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   {entry.mealType.split('_').map(word => 
                     word.charAt(0).toUpperCase() + word.slice(1)
                   ).join(' ')}
@@ -55,7 +55,7 @@ const RecentEntries: React.FC<RecentEntriesProps> = ({
               )}
               
               {entry.notes && (
-                <div className="text-xs text-gray-600 mt-1 truncate">
+                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 truncate">
                   {entry.notes}
                 </div>
               )}

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useGlucose } from '../context/GlucoseContext';
+import { useTheme } from '../context/ThemeContext';
 import { toast } from 'react-hot-toast';
-import { Settings as SettingsIcon, Trash2, Download, Upload } from 'lucide-react';
+import { Settings as SettingsIcon, Trash2, Download, Upload, Moon, Sun } from 'lucide-react';
 
 const Settings: React.FC = () => {
   const { state, updateSettings, deleteEntry } = useGlucose();
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleTargetRangeChange = (field: 'min' | 'max', value: string) => {
@@ -114,17 +116,40 @@ const Settings: React.FC = () => {
       <div className="flex items-center gap-3 mb-6">
         <SettingsIcon size={24} className="text-primary-600" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-600">Manage your preferences</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
+          <p className="text-gray-600 dark:text-gray-400">Manage your preferences</p>
+        </div>
+      </div>
+
+      {/* Appearance */}
+      <div className="card">
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Appearance</h3>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {isDarkMode ? <Moon size={20} className="text-gray-600 dark:text-gray-400" /> : <Sun size={20} className="text-gray-600 dark:text-gray-400" />}
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Dark Mode</span>
+          </div>
+          <button
+            onClick={toggleDarkMode}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              isDarkMode ? 'bg-primary-600' : 'bg-gray-200 dark:bg-gray-700'
+            }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                isDarkMode ? 'translate-x-6' : 'translate-x-1'
+              }`}
+            />
+          </button>
         </div>
       </div>
 
       {/* Target Range */}
       <div className="card">
-        <h3 className="text-lg font-semibold mb-4">Target Glucose Range</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Target Glucose Range</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Minimum (mg/dL)
             </label>
             <input
@@ -137,7 +162,7 @@ const Settings: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Maximum (mg/dL)
             </label>
             <input
@@ -150,14 +175,14 @@ const Settings: React.FC = () => {
             />
           </div>
         </div>
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
           Readings within this range will be considered "in target"
         </p>
       </div>
 
       {/* Units */}
       <div className="card">
-        <h3 className="text-lg font-semibold mb-4">Units</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Units</h3>
         <div className="grid grid-cols-2 gap-2">
           {(['mg/dL', 'mmol/L'] as const).map(unit => (
             <button

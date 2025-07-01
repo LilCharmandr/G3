@@ -69,7 +69,7 @@ const AddEntry: React.FC = () => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Add Reading</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Add Reading</h1>
         <button
           onClick={() => navigate('/')}
           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
@@ -81,7 +81,7 @@ const AddEntry: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Glucose Value */}
         <div className="card">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Glucose Level (mg/dL) *
           </label>
           <input
@@ -99,7 +99,7 @@ const AddEntry: React.FC = () => {
 
         {/* Date & Time */}
         <div className="card">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Date & Time *
           </label>
           <input
